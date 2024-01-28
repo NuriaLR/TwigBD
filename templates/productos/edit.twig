@@ -1,0 +1,34 @@
+{% extends "plantilla.twig" %}
+
+{% block title %}Editar Productos{% endblock %}
+{% block main %}
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="table">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                    <tr>
+                        <form id="productos-form" action="cambiarProducto?id={{ producto.id }}" method="post">
+                        <td>{{ producto.id }}</td>
+                        <td><input type="text" id="nombre" name="nombre" value="{{ producto.nombre }}"></td>
+                        <td><input type="text" id="descripcion" name="descripcion" value="{{ producto.descripcion }}"></td>
+                        <td><input type="text" id="precio" name="precio" value="{{ producto.precio }}"></td>
+                        <td><input type="text" id="stock" name="stock" value="{{ producto.stock }}"></td>
+                        <td><button type="submit" class="btn btn-outline-info" id="productos-button" >CAMBIAR</button></td>
+                        </form>
+                    </tr>
+                {% endfor %}            
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

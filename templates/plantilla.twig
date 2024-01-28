@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    <!-- Enlazar Bootstrap CSS desde CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="assets/css/style.css">
+        {% block style %}{% endblock %}
+    </head>
+    <body>
+        <header>
+            {% block header %}{% endblock %}
+        </header>
+        <main>
+            {% block main %}{% endblock %}
+        </main>
+        <footer>{% block footer %}{% endblock %}</footer>
+    </body>
+</html>
+
+  

@@ -1,0 +1,48 @@
+{% extends "plantilla.twig" %}
+
+{% block title %}PEDIDOS{% endblock %}
+{% block main %}
+  {% set cliente_actual = null %}
+  {% for pedido in pedidos %}
+    {% if cliente_actual != pedido.cliente_nombre %}
+      {% if cliente_actual is not null %}
+        </tbody>
+      </table>
+      {% endif %}
+      <div class="table-responsive">
+        <h2>Pedidos del cliente:  {{ pedido.cliente_nombre }}</h2>
+        <table class="table">
+          <thead class="table">
+            <tr>
+              <th>ID</th>
+              <th>Fecha</th>                    
+              <th>Nombre Producto</th>
+              <th>Cantidad</th>
+              <th>Total</th>
+              <th>Nombre Cliente</th>
+              <th>DNI Cliente</th>
+              <th>Dirección de entrega</th>
+              <td><a href='estadosClientes?id={{ pedido.id }}' class="btn btn-outline-info">Estado del pedido</a></td>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+    {% endif %}
+    <tr>
+      <td>{{ pedido.id }}</td>
+      <td>{{ pedido.fecha }}</td>                      
+      <td>{{ pedido.producto_nombre }}</td>
+      <td>{{ pedido.cantidad }}</td>
+      <td>{{ pedido.precio|replace({'.': ','}) }}€</td>
+      <td>{{ pedido.cliente_nombre }}</td>
+      <td>{{ pedido.dni }}</td>
+      <td>{{ pedido.direccion_entrega }}</td>  
+    </tr>
+    {% set cliente_actual = pedido.cliente_nombre %}
+  {% endfor %}
+  {% if cliente_actual is not null %}
+        </tbody>
+      </table>
+  {% endif %}
+</div>
+{% endblock %}

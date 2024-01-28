@@ -1,0 +1,72 @@
+{% extends "plantilla.twig" %}
+
+{% block title %}Pedidos Usuario{% endblock %}
+{% block main %}
+
+    <div class="container mt-3">
+        <h1>Seguimiento de los pedidos de {{ pedidoClientes[0].cliente_nombre }}</h1>
+        <table class="table">
+            <thead class="table">
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Dirección</th>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set totalCompras =0 %}
+                {% set idPedido =0 %}        
+                {# Filtro que crea una variable 'hoy' que contiene la fecha actual formateada como "año-mes-día" #}   
+                {% set hoy = "now"|date("Y-m-d") %}
+
+                {% for pedidoCliente in pedidoClientes %}
+                    <tr>
+                        <td>{{ pedidoCliente.pedido_id }}</td>
+                        <td>{{ pedidoCliente.fecha }}</td>
+                        <td>{{ pedidoCliente.cliente_nombre }}</td>
+                        <td>{{ pedidoCliente.apellido }}</td>
+                        <td>{{ pedidoCliente.direccion }}</td>
+                        <td>{{ pedidoCliente.producto }}</td>
+                        <td>{{ pedidoCliente.precio |replace({'.': ','}) }}€</td> {# Muestra el precio del pedido, reemplazando el punto decimal por una coma y añadiendo el símbolo de euro al final #}
+                        <td>{{ pedidoCliente.cantidad }}</td>
+                    </tr>
+                    {% set totalCompras = pedidoCliente.totalCompra %}
+                    {% set idPedido = pedidoCliente.pedido_id %}
+                {% endfor %}        
+            </tbody>
+        </table>
+        
+        <table class="table-responsive">
+            <thead class="table">
+                <tr>
+                    <th>Estado</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                       {# Itera sobre los estados de los pedidos para el cliente actual #}
+                        {% for pedidoEstado in pedidoEstados %}
+                            {% if pedidoEstado.pedido_id == idPedido %}
+                                {# Muestra información sobre el estado del pedido actual #}
+                                <p>Estado del pedido: {{ pedidoEstado.estado_pedido }}
+                                    {% set fechaPedido = pedidoEstado.fecha|date("Y-m-d") %}
+                                    {% set dias = hoy|date("U") - fechaPedido|date("U") %}
+                                     Hace {{ dias / (60*60*24) }} días</p>
+                                    <p>Fecha: {{ pedidoEstado.fecha }}</p>
+                                    <hr/>
+                            {% endif %}
+                        {% endfor %} 
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

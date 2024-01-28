@@ -1,0 +1,33 @@
+{% extends "plantilla.twig" %}
+
+{% block title %}Clientes{% endblock %}
+{% block main %}
+  <div class="table-responsive">
+        <h2>CLIENTES</h2>
+        <table class="table">
+            <thead class="table">
+                <tr>
+                    <th>ID</th>
+                    <th>Dni</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Correo</th>
+                    <th>Dirección</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cliente in clientes %}
+                    <tr>
+                        <td>{{ cliente.id }}</td>
+                        <td>{{ cliente.dni }}</td>
+                        <td>{{ cliente.nombre }}</td>
+                        <td>{{ cliente.apellido }}</td>
+                        <td>{{ cliente.correo }}</td>
+                        <td>{{ cliente.direccion }}</td>
+                    </tr>
+                {% endfor %}            
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
